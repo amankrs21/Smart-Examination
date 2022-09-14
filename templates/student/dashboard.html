@@ -2,44 +2,41 @@
 {% load static %}
 {% block body %}
 
-    <div class="instructions">
-        <div class="alert alert-success" role="alert">
-            {% include 'messages.html' %}
-        </div>
-        <div class="welcome">Welcome</div><br>
-        <p>Hello user, Welcome to Smart Examination System <br><br>
-            Please make sure that: <br>
-            you have an active user account at UiB. Log on to webmail.uib.no, miside.uib.no or another UiB-service to
-            see if your account is active.
-            you remember the password for your UiB-account. If you have forgotten your password, you can change it at
-            sebra.uib.no.
-        </p>
-        <div class="welcome">Instructions</div><br>
-        <p>Hello user, Welcome to Smart Examination System <br><br>
-            Please make sure that: <br>
-            you have an active user account at UiB. Log on to webmail.uib.no, miside.uib.no or another UiB-service to
-            see if your account is active.
-            you remember the password for your UiB-account. If you have forgotten your password, you can change it at
-            sebra.uib.no.
-        </p>
-        <div class="welcome">Objects</div><br>
+<title>Student | Dashboard</title>
+
+<div class="instructions">
+    <h1 style="text-align: center; font-family:'Poppins'">{% include 'messages.html' %}</h1>
+    <div class="welcome">Welcome</div><br>
+    <p>Hello user, Welcome to Smart Examination System <br><br>
+        Online Examination is, because entire processes detailing of online classes is voluminous and beyond the scope of this article. <br>
+        After three weeks of teaching online, we decided to interact with parents using the same online video platform to know their 
+        views on the effectiveness of our efforts.
+    </p>
+    <div class="welcome">Instructions</div><br>
+    <p>Fill up your personal details carefully. <br>
+        All questions are compulsory. <br>
+        Try to submit the paper in 40-45 minutes. <br>
+        You are allowed to submit only once, make sure that you have correctly attempted all the questions before submission. <br>
+        Make sure you clicked on submit button to successfully complete the test. <br>
+        New students must watch demo tutorial exam video then apear for exam <br>
+        If you face any difficulties while appearing the test please contact the respective faculty.
+    </p>
+    <div class="welcome">Objects</div><br>
+</div>
+<div class="container">
+
+    <div class="card">
+        <h2><span class="span-card fas fa-pencil-alt"></span>&nbsp;&nbsp;EXAMINATION</h2>
+        <p> Total <br> Exam's <br> {{exam}} </p>
     </div>
-    <div class="container">
-
-        <div class="card">
-            <h2><span class="span-card fas fa-pencil-alt"></span>&nbsp;&nbsp;EXAMINATION</h2>
-            <p> Total <br> Exam's <br> 0</p>
-        </div>
-        <div class="card">
-            <h2><span class="span-card fas fa-clipboard-list"></span>&nbsp;&nbsp;RESULT</h2>
-            <p> Total <br> Result's <br> 0</p>
-        </div>
-        <div class="card">
-            <h2><span class="span-card fas fa-file-alt"></span>&nbsp;&nbsp;NOTICE</h2>
-            <p> Total <br> Notice's <br> 0</p>
-        </div>
-
+    <div class="card">
+        <h2><span class="span-card fas fa-clipboard-list"></span>&nbsp;&nbsp;RESULT</h2>
+        <p> Total <br> Result's <br> {{result}} </p>
+    </div>
+    <div class="card">
+        <h2><span class="span-card fas fa-file-alt"></span>&nbsp;&nbsp;NOTICE</h2>
+        <p> Total <br> Notice's <br> 0</p>
     </div>
 
-
+</div>
 {% endblock %}

@@ -25,7 +25,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 SECRET_KEY = 'django-insecure-nkt7-qq+gwm#as#92-88e*jr+b*yv&fia47-sw%edb5^=!qx)d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','smartexam.herokuapp.com']
 

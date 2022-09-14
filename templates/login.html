@@ -148,11 +148,11 @@
                         <form action="{% url 'login' %}" method="post">
                             {% csrf_token %}
                             <h1 class="form__title"><br><br>Login Here</h1>
+                            {% include 'messages.html' %}
                             <input class="form__email" type="text" name="username" placeholder="Username" required />
                             <input class="form__password" type="password" name="password" id="password" placeholder="Password" required />
                             <input class="form__submit-btn" type="submit" value="Login" />
                         </form>
-                        {% include 'messages.html' %}
                         <p><br>
                             <a class="form__link" href="">Forgotten Your Password?</a>
                             <br><br>Don't have an Account?

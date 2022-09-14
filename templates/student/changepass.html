@@ -75,6 +75,7 @@
         <div class="form__padding-right">
             <center>
             <form action="" method="post"><br><br>
+                {% csrf_token %}
                 <label for="oldpass">Old Password : </label> <br>
                 <input type="password" name="oldpass" id="oldpass" placeholder="Enter Old Password"> <br>
 
@@ -89,7 +90,7 @@
                 <input class="button" id="button" type="submit" value="Change Password">
             </form><br><br>
             </center>
-            {% include 'messages.html' %}
+            <h1 style="text-align: center; font-family:'Poppins'">{% include 'messages.html' %}</h1>
         </div>
     </div>
 </div>

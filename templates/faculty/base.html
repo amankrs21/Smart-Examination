@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 
-<body>
+<body onload="startTime()">
     <!-- Header start -->
     <header>
         <div class="header-inner">
@@ -18,8 +18,8 @@
                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SES
             </div>
             <div class="header-other">
-                <li><span>Welcome, {{ username }}</span></li>
-                <li><span> {{ datetime }}</span></li>
+                <li><span>Hello, {{ username }}</span></li>
+                <li><span id="datetime"> </span></li>
                 <li><span><a href="{% url 'logout' %}" class="header-button">Logout</a></span></li>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <ul><br><br>
                 <p class="centered"><a href="#"><img src="{% static 'img/dpicon.png' %}" class="img-circle"
                             width="60"></a></p><br>
-                <h3 style="color: white;" class="centered"> {{ fullname }} </h3><br>
+                <h3 style="color: white;" class="centered"> {{ username }} </h3><br>
                 <li class="active"><a href="{% url 'faculty' %}">Home</a></li>
                 <li><a href="{% url 'viewstudent' %}">Students</a></li>
                 <li>

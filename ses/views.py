@@ -33,7 +33,7 @@ def login(request):
 
             if user and user.is_active and exis and not user_ch.is_staff:
                 auth.login(request,user)
-                # messages.success(request,"Welcome, "+ user.username + ". You are now logged in.")
+                messages.success(request,"Welcome, "+ user.username + ". You are now logged in.")
                 return redirect('student')
                 
             # elif user and exis and user_ch.is_staff and not has_grp:

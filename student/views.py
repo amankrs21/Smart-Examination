@@ -1,9 +1,8 @@
 import random
-from urllib import response
 from .models import *
 from exam.models import *
+from django.contrib import auth
 from django.contrib import messages
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -12,15 +11,22 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    return render(request, 'student/dashboard.html')
+    exam = ExamInfo.objects.count()
+    names = StudentInfo.objects.get(user=request.user)
+    result = Result.objects.filter(student=names.name).count()
+    return render(request, 'student/dashboard.html', {'exam':exam,'result':result})
 
 
 def ViewExam(request):
-    student = StudentInfo.objects.get(user=request.user)
+    info = StudentInfo.objects.get(user=request.user)
     exam = ExamInfo.objects.all()
-    resp = ExamResponse.objects.filter(student=student).values()
+    history = StuExamHistory.objects.get(student=info)
+    context = {
+        'exam':exam,
+        'history':history,
+    }
     
-    return render(request, 'student/viewexam.html', {'exam':exam, 'resp':resp})
+    return render(request, 'student/viewexam.html', context)
 
 
 def convert(seconds):
@@ -103,7 +109,6 @@ def ViewResponse(request, code):
 def ExamHistory(request):
     stud = StudentInfo.objects.get(user=request.user)
     response = StuExamHistory.objects.filter(student=stud).values()
-    print(response)
     context = {
         'response':response,
     }
@@ -118,5 +123,38 @@ def MyProfile(request):
         }
         return render(request, 'student/myprofile.html', context)
 
+    if request.method == 'POST':
+        name = request.POST['fullname']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        department = request.POST['department']
+        address = request.POST['address']
+
+        profile = StudentInfo.objects.get(user=request.user)
+        profile.name = name
+        profile.email = email
+        profile.number = phone
+        profile.department = department
+        profile.address = address
+        profile.save()
+        messages.success(request, "Profile Updated Successfully")
+        return redirect('student')
+
 def StuChangePassword(request):
-    return render(request, 'student/changepass.html')
+    if request.method == 'GET':
+        return render(request, 'student/changepass.html')
+    
+    if request.method == 'POST':
+        oldpass = request.POST['oldpass']
+        newpass = request.POST['newpass']
+        userinfo = auth.authenticate(username=request.user,password=oldpass)
+        users=User.objects.filter(username=request.user)
+        user=users[0]
+        if userinfo:
+            user.set_password = newpass
+            user.save()
+            messages.success(request, "Password Changed Successfully")
+            return redirect('student')
+        else:
+            messages.error(request, "Invalid Credentials :(")
+            return redirect('stuchangepass')

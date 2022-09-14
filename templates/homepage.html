@@ -13,11 +13,11 @@
 <body>
     <style>
         * {
-
             font-family: cursive;
             color: #271a70;
             background-color: white;
-
+            list-style: none;
+            text-decoration: none;
         }
 
         .main {
@@ -26,7 +26,7 @@
         }
 
         .abt {
-            margin-top: 400px;
+            margin-top: 430px;
             padding-right: 3%;
             width: 95%;
         }
@@ -35,26 +35,29 @@
             position: absolute;
             top: 50px;
             left: 0;
-            height: 27em;
             width: 100%;
         }
 
-        .btn btn-raised btn-lg:hover {
-            background-color: #45d635;
-            box-shadow: 0px 15px 20px rgba(4, 112, 139, 0.4);
-            color: #fff;
-            transform: translateY(-7px);
-            text-align: center;
-            padding-right: 5em;
+        .button {
+            color: #ffff;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px 13px;
+            border-radius: 7px;
+            background: #6771f4;
+        }
+
+        .button:hover {
+            filter: contrast(2.21);
+            box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+            scale: 1.09;
         }
     </style>
     <nav class="navbar navbar-light" style="background-color:#424ce1">
         <a href="#" class="navbar-brand" style="color: white; padding-left: 5em;">
             Welcome!
         </a>
-        <a href="{% url 'login' %}" align="right" style="color: white; padding-right: 4em; font-size: 21px;">
-            Login Here
-        </a>
+        <a href="{% url 'login' %}"><button class="button">Login Here</button></a>
     </nav>
     <div class="main">
         <div class="abt">
@@ -82,10 +85,29 @@
             </h5>
         </div>
         <div class="img">
-            <img style="height: 500px;" src="{% static 'img/homepage.jpeg' %}" alt=" Mmkay">
+            <img id="imgBanner" style="height: 500px;" alt="Unable to load image">
         </div>
     </div>
-    <hr>
+    <script>
+        var picPaths = ["{% static 'img/image.jpeg' %}", "{% static 'img/image1.png' %}", "{% static 'img/image2.png' %}", "{% static 'img/image3.png' %}", "{% static 'img/image4.png' %}"];
+        var curPic = -1;
+        var imgO = new Array();
+        for (i = 0; i < picPaths.length; i++) {
+            imgO[i] = new Image();
+            imgO[i].src = picPaths[i];
+        }
+
+        function swapImage() {
+            curPic = (++curPic > picPaths.length - 1) ? 0 : curPic;
+            imgCont.src = imgO[curPic].src;
+            setTimeout(swapImage, 2500);
+        }
+
+        window.onload = function () {
+            imgCont = document.getElementById('imgBanner');
+            swapImage();
+        }
+    </script>
 </body>
 
 </html>

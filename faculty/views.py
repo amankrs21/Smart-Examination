@@ -1,7 +1,7 @@
 from .models import *
-from exam.models import ExamInfo, SubjectInfo, Result
+from exam.models import *
 from student.models import *
-from datetime import datetime
+from django.contrib import auth
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -11,15 +11,31 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
 def index(request):
-    data = dashdata(request)
-    return render(request, 'faculty/dashboard.html', data)
+    stud = StudentInfo.objects.count()
+    dept = DepartmentInfo.objects.count()
+    subj = SubjectInfo.objects.count()
+    exam = ExamInfo.objects.count()
+    ques = Questions.objects.count()
+    resp = ExamResponse.objects.count()
+    context = {
+        'username':request.user,
+        'stud':stud,
+        'dept':dept,
+        'subj':subj,
+        'exam':exam,
+        'ques':ques,
+        'resp':resp,
+    }
+    return render(request, 'faculty/dashboard.html', context)
 
 
 @login_required(login_url='login')
 def AddDept(request):
     if request.method == 'GET':
-        data = dashdata(request)
-        return render(request, 'faculty/AddDept.html', data)
+        context = {
+            'username':request.user
+        }
+        return render(request, 'faculty/AddDept.html', context)
 
     if request.method == 'POST':
         dep_name = request.POST['dep_name']
@@ -39,9 +55,7 @@ def ViewDept(request):
     if request.method == 'GET':
         dept = DepartmentInfo.objects.all()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             "dept": dept,
         }
         return render(request, 'faculty/viewdept.html', context)
@@ -52,9 +66,7 @@ def ViewStud(request):
     if request.method == 'GET':
         stud = StudentInfo.objects.all()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             "stud": stud,
         }
         return render(request, 'faculty/viewstudent.html', context)
@@ -65,9 +77,7 @@ def ViewExam(request):
     if request.method == 'GET':
         exam = ExamInfo.objects.all()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             "exam": exam,
         }
         return render(request, 'faculty/viewexam.html', context)
@@ -78,9 +88,7 @@ def ViewSubj(request):
     if request.method == 'GET':
         subj = SubjectInfo.objects.all()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             "subj": subj,
         }
         return render(request, 'faculty/viewsubject.html', context)
@@ -92,9 +100,7 @@ def GenResult(request):
         resp = ExamResponse.objects.order_by().values('examname', 'student', 'studname',
                                                       'deptname', 'subjname', 'code').distinct()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             "resp": resp,
         }
         return render(request, 'faculty/genresult.html', context)
@@ -105,9 +111,7 @@ def ViewPaper(request, code):
     if request.method == 'GET':
         response = ExamResponse.objects.filter(code=code).values()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             "response": response,
         }
         return render(request, 'faculty/viewpaper.html', context)
@@ -128,8 +132,8 @@ def ViewPaper(request, code):
             examname = r['examname']
             deptname = r['deptname']
             subjname = r['subjname']
-            marks += marks + r['marksgain']
-            total += total + r['totalmarks']
+            marks = marks + r['marksgain']
+            total = total + r['totalmarks']
 
         result = Result(code=code,student=student,examname=examname,deptname=deptname,subjname=subjname,totalmarks=total,marksgain=marks)
         result.save()
@@ -142,9 +146,7 @@ def searchresult(request):
     if request.method == 'GET':
         result = Result.objects.all()
         context = {
-            'fullname': request.user,
             'username': request.user,
-            'datetime': datetime.now(),
             'result': result,
         }
         return render(request, 'exam/searchresult.html', context)
@@ -155,6 +157,7 @@ def FacultyProfile(request):
     if request.method == 'GET':
         faculty = FacultyInfo.objects.get(user=request.user)
         context = {
+            'username': request.user,
             'faculty':faculty,
         }
         return render(request, 'faculty/myprofile.html', context)
@@ -167,29 +170,37 @@ def FacultyProfile(request):
         subject = request.POST['subject']
         address = request.POST['address']
 
-        profile = FacultyInfo(user=User.objects.get(username=request.user))
-        # ,name=name,address=address,number=number,department=department,subject=subject
+        profile = FacultyInfo.objects.get(user=request.user)
         profile.name = name
+        profile.email = email
+        profile.number = phone
+        profile.department = department
+        profile.subject = subject
+        profile.address = address
         profile.save()
-        # mail = User(username=request.user, email=email)
-        # mail.save()
         messages.success(request, "Profile Updated Successfully")
         return redirect('faculty')
 
 
 @login_required(login_url='login')
 def FacChangePass(request):
-    return render(request, 'faculty/changepass.html')
-
-
-def dashdata(request):
-    username = request.user
-    fullname = FacultyInfo.objects.filter(user=username).values()
-    for x in fullname:
-        fullname = x['name']
-    context = {
-        'fullname': fullname,
-        'username': username,
-        'datetime': datetime.now(),
-    }
-    return context
+    if request.method == 'GET':
+        context = {
+            'username': request.user
+        }
+        return render(request, 'faculty/changepass.html', context)
+    
+    if request.method == 'POST':
+        oldpass = request.POST['oldpass']
+        newpass = request.POST['newpass']
+        userinfo = auth.authenticate(username=request.user,password=oldpass)
+        users=User.objects.filter(username=request.user)
+        user=users[0]
+        if userinfo:
+            user.set_password = newpass
+            user.save()
+            messages.success(request, "Password Changed Successfully")
+            return redirect('faculty')
+        else:
+            messages.error(request, "Invalid Credentials :(")
+            return redirect('facchangepass')

@@ -35,7 +35,7 @@
         scale: 1.02;
     }
     .viewexam {
-        min-height: 852px;
+        min-height: 882px;
     }
 </style>
 
@@ -58,7 +58,11 @@
             <td>{{e.examdept}}</td>
             <td>{{e.examsubj}}</td>
             <td>{{e.totalmarks}}</td>
+            {% if history.examname == e.examname%}
+            <td><a href="#"><button style="background: grey;" disabled>Appeared</button></a></td>
+            {% else %}
             <td><a href="{% url 'openexam' e.id %}"><button>Appear</button></a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

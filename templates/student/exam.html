@@ -80,7 +80,7 @@
     </style>
 </head>
 
-<body>
+<body onload="message()">
     <div class="exambody">
         <br><h2 style="text-align: center;"><b>{% include 'messages.html' %}</b></h2>
         <div class="examtitle"> {{exam.examname}} </div>
@@ -120,15 +120,19 @@
                 <input type="hidden" id="secs" value="{{ sec }}">
                 <input type="hidden" id="mins" value="{{ min }}"><br><br>
                 <center><input type="submit" value="Submit" id="PaperSubmit" onclick="submitFormOkay = true;" class="btn"
-                    style="border-color:#745959; color:#745959;" /></center><br><br><br>
+                    style="border-color:#745959; color:white;" /></center><br><br><br>
             </form>
         </div>
     </div>
 </body>
 
 <script>
+    function message() {
+        alert("Please don't exit fullscreen");
+    }
     setInterval(function () {
-        document.documentElement.requestFullscreen()
+        document.documentElement.requestFullscreen();
+        
     }, 1000)
 
     var milisec = 0;
