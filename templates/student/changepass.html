@@ -1,0 +1,112 @@
+{% extends 'student/base.html' %}
+{% load static %}
+
+{% block body%}
+
+<title>Change Password</title>
+<style>
+    .picture {
+        background: #f2f2f2;
+        width: 100%;
+        min-height: 90vh;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .form__box {
+        font-family: 'Poppins';
+        width: 400px;
+        height: 100%;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 40px;
+    }
+
+    .form__padding {
+        width: 210px;
+        height: 210px;
+        border-radius: 50%;
+        line-height: 210px;
+        position: relative;
+    }
+
+    .form__title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    input {
+        text-align: center;
+        display: block;
+        width: 220px;
+        max-height: 45px;
+        border-radius: 9px;
+        border: none;
+        background: #f2f2f2;
+        padding: 10px;
+        font-size: 15px;
+        position: relative;
+    }
+
+    .button {
+        background: #0492C2;
+        font-size: 16px;
+        width: 150px;
+        padding: 8px;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        filter: contrast(2.21);
+        box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+        scale: 1.02;
+    }
+</style>
+
+<div class="picture">
+    <div class="form__box">
+        <div class="form__padding-right">
+            <center>
+            <form action="" method="post"><br><br>
+                <label for="oldpass">Old Password : </label> <br>
+                <input type="password" name="oldpass" id="oldpass" placeholder="Enter Old Password"> <br>
+
+                <label for="newpass">New Password : </label> <br>
+                <input type="password" name="newpass" id="newpass" placeholder="Enter New Password"> <br>
+
+                <label for="confpass">Confirm Password : </label> <br>
+                <input type="password" name="confpass" onkeyup="validate_password()" id="confpass"
+                    placeholder="Enter Confirm Password"> <br>
+                <span id="wrong_pass_alert"></span>
+
+                <input class="button" id="button" type="submit" value="Change Password">
+            </form><br><br>
+            </center>
+            {% include 'messages.html' %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function validate_password() {
+        var newpass = document.getElementById('newpass').value;
+        var confirm_pass = document.getElementById('confpass').value;
+        if (newpass != confirm_pass) {
+            document.getElementById('wrong_pass_alert').style.color = 'red';
+            document.getElementById('wrong_pass_alert').innerHTML = 'Password not matched';
+            document.getElementById('button').disabled = true;
+        } else {
+            document.getElementById('button').disabled = false;
+            document.getElementById('wrong_pass_alert').innerHTML = '';
+        }
+    }
+</script>
+
+{% endblock %}

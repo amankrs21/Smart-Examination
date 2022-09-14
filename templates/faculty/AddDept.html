@@ -1,0 +1,23 @@
+
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<title>Add Department</title>
+
+<br><br><br><br><br>
+
+<div class="dashbody">
+    <h1 style="font-size: 40px; font-family: 'DynaPuff'; text-align:center">Add Department</h1><br><br>
+    <div class="sub-cont"><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="dep_name" placeholder="Name of Department" required><br><br>
+            <input type="text" name="dep_head" placeholder="Head of Department" required><br><br><br>
+            <input class="button" type="submit" value="ADD">
+        </form><br><br>
+    </div>
+</div>
+
+{% endblock %}

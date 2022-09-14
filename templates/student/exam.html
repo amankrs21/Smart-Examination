@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{exam.examname}}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=DynaPuff:400,500,600,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+
+        .examtitle {
+            background: red;
+            margin: 30px 0;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 35px;
+            font-weight: bold;
+            font-family: 'DynaPuff';
+            border-radius: 10px;
+        }
+
+        .examsubtitle {
+            margin: 0 250px;
+            font-size: 25px;
+            font-family: 'Poppins';
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .examsubtitle p {
+            color: rgb(99, 64, 197);
+            font-size: 30px;
+            border-style: dashed;
+            border-color: chartreuse;
+            border-width: 5px;
+        }
+
+        .examcontent {
+            margin: 0 350px;
+            font-size: 21px;
+            font-weight: 200;
+            font-family: 'Poppins';
+        }
+
+        .examcontent textarea {
+            width: 90%;
+            max-width: 850px;
+            border-width: 3px;
+            border-radius: 5px;
+            font-family: 'Poppins';
+            font-size: 18px;
+            font-weight: bold;
+            resize: vertical;
+        }
+
+        #PaperSubmit {
+            justify-content: center;
+            background: #04AA6D;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        #PaperSubmit:hover {
+            filter: contrast(2.21);
+            box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="exambody">
+        <br><h2 style="text-align: center;"><b>{% include 'messages.html' %}</b></h2>
+        <div class="examtitle"> {{exam.examname}} </div>
+
+        <div class="examsubtitle">
+            Department - {{exam.examdept}} <br>
+            Subject - {{exam.examsubj}} <br>
+            Total Marks - {{exam.totalmarks}} <br>
+            <p><a>Time left : <a id="dmin">{{min}}</a> mins <a id="dsec">{{sec}}</a> seconds</a></p>
+        </div> <br><br>
+
+        <div class="examcontent">
+            <form action="" method="post" id="examform">
+                {% csrf_token %}
+                <h2 style="text-align: center;">Objective Type Questions</h2> <br>
+                {% for q in quest %}
+                {% if q.question_type == 'Objective' %}
+                <h3>Q. &nbsp; {{q.question}} &nbsp;&nbsp; ({{q.marks}}) </h3>
+                &nbsp;<input type="radio" id="{{q.option1}}" name="{{q.question}}" value="{{q.option1}}">
+                <label for="{{q.option1}}">{{q.option1}}</label><br>
+                &nbsp;<input type="radio" id="{{q.option2}}" name="{{q.question}}" value="{{q.option2}}">
+                <label for="{{q.option2}}">{{q.option2}}</label><br>
+                &nbsp;<input type="radio" id="{{q.option3}}" name="{{q.question}}" value="{{q.option3}}">
+                <label for="{{q.option3}}">{{q.option3}}</label><br>
+                &nbsp;<input type="radio" id="{{q.option4}}" name="{{q.question}}" value="{{q.option3}}">
+                <label for="{{q.option4}}">{{q.option4}}</label><br><br>
+                {% endif %}
+                {% endfor %}
+                <h2 style="text-align: center;">Subjective Type Questions</h2> <br>
+                {% for q in quest %}
+                {% if q.question_type == 'Subjective' or q.question_type == 'Coding' %}
+                <h3>Q.{{q.id}} &nbsp; {{q.question}} &nbsp;&nbsp; ({{q.marks}}) </h3> <br>
+                <textarea name="{{q.question}}" id="" rows="8" placeholder="Write your answer here"></textarea>
+                {% endif %}
+                {% endfor %}
+                <input type="hidden" value="{{ exam }}" name="paper">
+                <input type="hidden" id="secs" value="{{ sec }}">
+                <input type="hidden" id="mins" value="{{ min }}"><br><br>
+                <center><input type="submit" value="Submit" id="PaperSubmit" onclick="submitFormOkay = true;" class="btn"
+                    style="border-color:#745959; color:#745959;" /></center><br><br><br>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    setInterval(function () {
+        document.documentElement.requestFullscreen()
+    }, 1000)
+
+    var milisec = 0;
+    var seconds = document.getElementById("secs").value;
+    var minutes = document.getElementById("mins").value
+    function display() {
+        if (minutes == 0 && seconds == 0) {
+            window.onbeforeunload = undefined
+            document.getElementById("examform").submit();
+        }
+        if (seconds == 0) {
+            minutes = minutes - 1
+            seconds = 60
+        }
+        seconds -= 1
+        document.getElementById("dsec").innerHTML = seconds
+        document.getElementById("dmin").innerHTML = minutes
+        setTimeout("display()", 1000)
+    }
+    display()
+
+</script>
+
+</html>

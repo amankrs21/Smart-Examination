@@ -1,0 +1,77 @@
+{% extends 'student/base.html' %}
+{% load static %}
+
+{% block body%}
+
+<title>View Exam</title>
+<style>
+    table, th, td {
+        margin: 30px;
+        font-size: 20px;
+        font-family: 'Poppins';
+        text-align: center;
+        border: 1px solid white;
+        border-collapse: collapse;
+        border-radius: 6px;
+    }
+    
+    th, td {
+        padding: 15px;
+        background-color: #96D4D4;
+    }
+    
+    table tr td button {
+        background: #04AA6D;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+    }
+    
+    table tr td button:hover {
+        filter: contrast(2.21);
+        box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+        scale: 1.02;
+    }
+    .viewresult {
+        min-height: 836px;
+    }
+</style>
+
+<div class="viewresult">
+    <br><h2 style="text-align: center;"><b>{% include 'messages.html' %}</b></h2>
+    <center>
+        <table>
+            <tr>
+                <th>S.No.</th>
+                <th>STUDENT NAME</th>
+                <th>EXAM NAME</th>
+                <th>DEPARTMENT</th>
+                <th>SUBJECT</th>
+                <th>TOTAL MARKS</th>
+                <th>MARKS GAIN</th>
+                <th>GRADE</th>
+                <th>ACTION</th>
+            </tr>
+            {% for r in result %}
+            <tr>
+                <td>{{r.id}}</td>
+                <td>{{r.student}}</td>
+                <td>{{r.examname}}</td>
+                <td>{{r.deptname}}</td>
+                <td>{{r.subjname}}</td>
+                <td>{{r.totalmarks}}</td>
+                <td>{{r.marksgain}}</td>
+                <td>{{r.grade}}</td>
+                <td><a href="{% url 'viewresponse' r.code %}"><button> VIEW </button></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</div>
+
+<script>
+</script>
+
+{% endblock %}

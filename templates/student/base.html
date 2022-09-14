@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
+</head>
+
+<body>
+    <!-- Header Starts -->
+    <nav class="header">
+        <label class="logo">SES</label>
+        <ul>
+            <li><a class="active" href="{% url 'student' %}">Home</a></li>
+            <li>
+                <a href="#">Exam
+                    <i class="fas fa-caret-down"></i>
+                </a>
+                <ul>
+                    <li><a href="{% url 'viewexam' %}">View Exam</a></li>
+                    <li><a href="{% url 'examhistory' %}">Exam History</a></li>
+                    <li><a href="{% url 'viewsturesult' %}">Result</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">User
+                    <i class="fas fa-caret-down"></i>
+                </a>
+                <ul>
+                    <li><a href="{% url 'myprofile' %}">My Profile</a></li>
+                    <li><a href="{% url 'stuchangepass' %}">Change Password</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <!-- header ends here -->
+
+    <!-- body starts -->
+
+    {% block body %}
+    
+
+    {% endblock %}
+
+    <!-- boody ends here -->
+
+    <!-- footer starts -->
+    <footer>
+        <div class="inner">
+            <span>
+                &copy; 2022 SES (Contributed by Aman Singh).
+            </span>
+        </div>
+    </footer>
+    <!-- footer ends -->
+    
+</body>
+
+</html>

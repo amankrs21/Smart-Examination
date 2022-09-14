@@ -1,0 +1,54 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+    .viewpaper {
+        font-size: 20px;
+        margin-left: 150px;
+        font-family: 'Poppins';
+    }
+
+    .viewpaper .marks {
+        border-width: 4px;
+        border-radius: 10px;
+        max-width: 100px;
+        height: 40px;
+        font-family: 'Poppins';
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .button {
+        background: #04AA6D;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        filter: contrast(2.21);
+        box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+        scale: 1.09;
+    }
+</style>
+
+<div class="viewpaper"> <br> <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for r in response %}
+        <h3> Q. &nbsp; {{r.question}} &nbsp;&nbsp; ({{r.totalmarks}}) </h3>
+        <p> Ans. &nbsp; {{r.answer}} </p> <br>
+        <p> Marks Gain : &nbsp;
+            <input class="marks" type="number" name="{{r.question}}" value="{{r.marksgain}}">
+        </p> <br><br>
+        {% endfor %}
+        <input class="button" type="submit" value="Generate Result" />
+    </form>
+</div>
+
+{% endblock %}

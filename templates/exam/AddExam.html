@@ -1,0 +1,74 @@
+
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<title>Add Exam</title>
+
+<style>
+    table tr th {
+        height: 65px;
+        text-align: start;
+        font-size: 25px;
+        font-family: 'Poppins';
+    }
+    table tr td {
+        height: 65px;
+        text-align: center;
+        font-size: 25px;
+        font-family: 'Poppins';
+    }
+</style>
+
+<br><br><br><br>
+
+<div class="dashbody">
+    <h1 style="font-size: 40px; font-family: 'DynaPuff'; text-align:center">Exam Details</h1><br>
+    <p style="color: red; font-size: 17px">* Please select start Date and Time for exam in corrosponding field</p>
+    <div class="sub-cont"><br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <center>
+            <table>
+                <tr>
+                    <th>Total Marks : </th>
+                    <td>{{ myform.totalmarks }}</td>
+                </tr>
+                <tr>
+                    <th>Select Department : </th>
+                    <td>{{ myform.examdept }}</td>
+                </tr>
+                <tr>
+                    <th>Select Exam Type : </th>
+                    <td>
+                        <select name="exam_name" required>
+                            <option value="">---------</option>
+                            <option value="Winter Exam">Winter Exam</option>
+                            <option value="Summer Exam">Summer Exam</option>
+                            <option value="Internal Exam">Internal Exam</option>
+                            <option value="Weekly Test">Weekly Test</option>
+                            <option value="Other Exam">Other Exam</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Select Subject : </th>
+                    <td>{{ myform.examsubj }}</td>
+                </tr>
+                <tr>
+                    <th>Exam Start Time : </th>
+                    <td>{{ myform.starttime }}</td>
+                </tr>
+                <tr>
+                    <th>Exam End Time : </th>
+                    <td>{{ myform.endtime }}</td>
+                </tr>
+            </table> <br><br>
+            <input class="button" type="submit" value="ADD">
+            </center>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

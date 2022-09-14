@@ -1,0 +1,24 @@
+
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<title>Add Subject</title>
+
+<br><br><br><br><br>
+
+<div class="dashbody">
+    <h1 style="font-size: 40px; font-family: 'DynaPuff'; text-align:center">Add Subject</h1>
+    <div class="sub-cont"><br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ myform.subjectname }}<br><br><br>
+            {{ myform.subjectcode }}<br><br>
+            <br><br>
+            <input class="button" type="submit" value="ADD">
+        </form><br>
+    </div>
+</div>
+
+{% endblock %}

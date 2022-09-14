@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'css/faculty.css' %}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+    <!-- Header start -->
+    <header>
+        <div class="header-inner">
+            <div class="header-heading">
+                <div class="sidebar-btn">
+                    <span class="fas fa-bars"></span>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SES
+            </div>
+            <div class="header-other">
+                <li><span>Welcome, {{ username }}</span></li>
+                <li><span> {{ datetime }}</span></li>
+                <li><span><a href="{% url 'logout' %}" class="header-button">Logout</a></span></li>
+            </div>
+        </div>
+    </header>
+    <!-- Header ends -->
+
+    <p style="width: 100%; height: 1px; background-color: white;"></p>
+
+    <div class="container-sidebar" id="container-sidebar">
+        <!-- Sidebar start -->
+        <nav class="sidebar">
+            <ul><br><br>
+                <p class="centered"><a href="#"><img src="{% static 'img/dpicon.png' %}" class="img-circle"
+                            width="60"></a></p><br>
+                <h3 style="color: white;" class="centered"> {{ fullname }} </h3><br>
+                <li class="active"><a href="{% url 'faculty' %}">Home</a></li>
+                <li><a href="{% url 'viewstudent' %}">Students</a></li>
+                <li>
+                    <a href="#" class="dept-btn">Department
+                        <span class="fas fa-caret-down first"></span>
+                    </a>
+                    <ul class="dept-show">
+                        <li><a href="{% url 'adddepartment' %}">Add Department</a></li>
+                        <li><a href="{% url 'viewdepartment' %}">Department List</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="subj-btn">Subject
+                        <span class="fas fa-caret-down third"></span>
+                    </a>
+                    <ul class="subj-show">
+                        <li><a href="{% url 'addsubject' %}">Add Subject</a></li>
+                        <li><a href="{% url 'viewsubject' %}">Subject List</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="exam-btn">Exam
+                        <span class="fas fa-caret-down fourth"></span>
+                    </a>
+                    <ul class="exam-show">
+                        <li><a href="{% url 'addexam' %}">Add Exam</a></li>
+                        <li><a href="{% url 'view_exam' %}">Exam List</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="ques-btn">Add Questions
+                        <span class="fas fa-caret-down fifth"></span>
+                    </a>
+                    <ul class="ques-show">
+                        <li><a href="{% url 'addobjective' %}">Objective</a></li>
+                        <li><a href="{% url 'addsubjective' %}">Subjective</a></li>
+                        <li><a href="{% url 'addcoding' %}">Coding</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="result-btn">Result
+                        <span class="fas fa-caret-down sixth"></span>
+                    </a>
+                    <ul class="result-show">
+                        <li><a href="{% url 'generateresult' %}">Generate Result</a></li>
+                        <li><a href="{% url 'viewresult' %}">View Result</a></li>
+                    </ul>
+                </li>
+                <li>
+                <li>
+                    <a href="#" class="user-btn">User Profile
+                        <span class="fas fa-caret-down seventh"></span>
+                    </a>
+                    <ul class="user-show">
+                        <li><a href="{% url 'facultyprofile' %}">My Profile</a></li>
+                        <li><a href="{% url  'facchangepass' %}">Change Password</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- Sidebar ends -->
+
+        <!-- Body start -->
+        <div class="container-body" id="container-body">
+            
+            <br><h2 style="text-align: center; font-family: 'Poppins';"><b>{% include 'messages.html' %}</b></h2>
+            {% block body %}
+            
+            
+            {% endblock %}
+            
+        </div>
+        <!-- Body ends -->
+
+        <!-- footer starts -->
+        <footer>
+            <div class="inner">
+                <span>
+                    &copy; 2022 SES (Contributed by Aman Singh).
+                </span>
+            </div>
+        </footer>
+        <!-- footer ends -->
+    </div>
+    
+    <script src="{% static 'js/faculty.js' %}"></script>
+
+</body>
+</html>

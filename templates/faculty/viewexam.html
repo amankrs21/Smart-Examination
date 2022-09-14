@@ -1,0 +1,70 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body%}
+
+<title>View Exam</title>
+<style>
+    table, th, td {
+        margin: 30px;
+        font-size: 20px;
+        font-family: 'Poppins';
+        text-align: center;
+        border: 1px solid white;
+        border-collapse: collapse;
+        border-radius: 6px;
+    }
+    
+    th, td {
+        padding: 15px;
+        background-color: #96D4D4;
+    }
+    
+    table tr td button {
+        background: #04AA6D;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+    }
+    
+    table tr td button:hover {
+        filter: contrast(2.21);
+        box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+        scale: 1.09;
+    }
+    .viewexam {
+        min-height: 852px;
+    }
+</style>
+
+<div class="viewexam">
+    <center>
+    <table>
+        <tr>
+            <th>EXAM NAME</th>
+            <th>EXAM DATE</th>
+            <th>END TIME</th>
+            <th>DEPARTMENT</th>
+            <th>SUBJECT</th>
+            <th>TOTAL MARKS</th>
+        </tr>
+        {% for e in exam %}
+        <tr>
+            <td>{{e.examname}}</td>
+            <td>{{e.starttime}}</td>
+            <td>{{e.endtime}}</td>
+            <td>{{e.examdept}}</td>
+            <td>{{e.examsubj}}</td>
+            <td>{{e.totalmarks}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </center>
+</div>
+
+<script>
+</script>
+
+{% endblock %}

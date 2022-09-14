@@ -1,0 +1,38 @@
+
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<title>Add Objective</title>
+
+<br><br><br>
+
+<div class="dashbody">
+    <h1 style="font-size: 40px; font-family: 'DynaPuff'; text-align:center">Add Objective Question</h1>
+    <div class="sub-cont"><br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <b style="font-size: 30px; font-family: 'Hind'">Select Exam : </b>&nbsp;&nbsp;
+            {{ myform.examname }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ myform.marks }} <br><br>
+            {{ myform.question }} <br><br>
+            {{ myform.option1 }} <br><br>
+            {{ myform.option2 }} <br><br>
+            {{ myform.option3 }} <br><br>
+            {{ myform.option4 }} <br><br>
+            <p><b style="font-size: 25px; font-family:'Poppins'">Choose the correct one : </b>&nbsp;&nbsp;
+                <select name="correct_ans" id="" required>
+                    <option value="">None</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                </select><br><br>
+            </p>
+            <input class="button" type="submit" value="ADD">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

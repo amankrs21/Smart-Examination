@@ -1,0 +1,45 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block body %}
+
+    <div class="instructions">
+        <div class="alert alert-success" role="alert">
+            {% include 'messages.html' %}
+        </div>
+        <div class="welcome">Welcome</div><br>
+        <p>Hello user, Welcome to Smart Examination System <br><br>
+            Please make sure that: <br>
+            you have an active user account at UiB. Log on to webmail.uib.no, miside.uib.no or another UiB-service to
+            see if your account is active.
+            you remember the password for your UiB-account. If you have forgotten your password, you can change it at
+            sebra.uib.no.
+        </p>
+        <div class="welcome">Instructions</div><br>
+        <p>Hello user, Welcome to Smart Examination System <br><br>
+            Please make sure that: <br>
+            you have an active user account at UiB. Log on to webmail.uib.no, miside.uib.no or another UiB-service to
+            see if your account is active.
+            you remember the password for your UiB-account. If you have forgotten your password, you can change it at
+            sebra.uib.no.
+        </p>
+        <div class="welcome">Objects</div><br>
+    </div>
+    <div class="container">
+
+        <div class="card">
+            <h2><span class="span-card fas fa-pencil-alt"></span>&nbsp;&nbsp;EXAMINATION</h2>
+            <p> Total <br> Exam's <br> 0</p>
+        </div>
+        <div class="card">
+            <h2><span class="span-card fas fa-clipboard-list"></span>&nbsp;&nbsp;RESULT</h2>
+            <p> Total <br> Result's <br> 0</p>
+        </div>
+        <div class="card">
+            <h2><span class="span-card fas fa-file-alt"></span>&nbsp;&nbsp;NOTICE</h2>
+            <p> Total <br> Notice's <br> 0</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}

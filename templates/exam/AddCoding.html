@@ -1,0 +1,25 @@
+
+{% extends 'faculty/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<title>Add Coding</title>
+
+<br><br><br><br>
+
+<div class="dashbody">
+    <h1 style="font-size: 40px; font-family: 'DynaPuff'; text-align:center">Add Question for Code</h1>
+    <div class="sub-cont"><br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <b style="font-size: 30px; font-family: 'Hind'">Select Exam : </b>&nbsp;&nbsp;
+            {{ myform.examname }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ myform.marks }} <br><br><br>
+            {{ myform.question }} <br><br> <br>
+            <input class="button" type="submit" value="ADD">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
