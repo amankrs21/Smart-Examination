@@ -8,7 +8,7 @@ This Online Examination System is designed to streamline and simplify the proces
 
 By leveraging advanced features like automatic submission, tab restriction, and secure login mechanisms, this system ensures a fair and efficient examination process while reducing administrative overhead.
 
-1. **Superuser (Admin)**: Responsible for all activities in the system. Admins can manage all users and the system.  
+1. **Superuser (Admin)**: Responsible for all activities in the system. Admins can manage all users and the system. [django Admin Portal UI]
 2. **Faculty**: Responsible for managing exams in the system.  
 3. **Students**: Can appear for exams, and results will be generated automatically based on their performance.
 
